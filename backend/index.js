@@ -4,7 +4,9 @@ var bodyParser = require("body-parser")
 var mongoose = require("mongoose")
 const cors = require('cors');
 const Tesseract = require('tesseract.js');
-let url = ""
+const Client = require('@veryfi/veryfi-sdk')
+
+// let url = ""
 // const fs = require('fs');
 // const Tesseract = require('tesseract.js');
 // const bodyParser = require('body-parser');
@@ -78,34 +80,18 @@ app.post("/sign_up",(req,res)=>{
             
         })
     
-    // return res.redirect('signup_success.html')
+    
 
 })
 
 app.post("/postImg",(req,res)=>{
     var image = req.body.image;
+    var description = req.body.description;
     // var email = req.body.email;
     // // var phone = req.body.phone;
     // var password = req.body.password;
         console.log(req.body)
-    // var data = {
-    //     "image": image,
-        
-      
-    // }
-     
-        // db.collection('images').insertOne(data,(err,collection)=>{
-        //     if(err){
-        //         throw err;
-        //     }
-        //     console.log("Record Inserted Successfully");
-        //     // console.log(data)
-        //     res.status(200).send(data)
-
-        //    url = data.image
-            
-        // })
-
+   
 //         const {createWorker} = require('tesseract.js')
 //         const worker = createWorker({
 //         logger: m => console.log(m)
@@ -113,38 +99,68 @@ app.post("/postImg",(req,res)=>{
   
 
 
-    Tesseract.recognize(
-        req.body.image,
-        'eng',
-        { logger: m => console.log(m) }
-    )
-    .then(({ data: { text } }) => {
-        console.log(text)
-        return res.send({
-            text: text
-        });
-    })
+    // Tesseract.recognize(
+    //     req.body.image,
+    //     'eng',
+    //     { logger: m => console.log(m) }
+    // )
+    // .then(({ data: { text } }) => {
+    //     console.log(text)
+    //     return res.send({
+    //         text: text
+    //     });
+    // })
+ const client_id='vrfz5s1PcARhGDp4osvmHRhZNgRl0gWLG95u4mp'
+const client_secret ='wdyvXdeE3HKEeylZxStWP4iCGORmgt1fAN40gxty7ACidrgVZyJT1iexMGdzZhyEm7yesjNyCmBMpcEZJxZipHMazItEw1GYDIm4ETreGKr7G0ZaYbfi2h3fFSuCWehy'
+const username ='akshayhegde158'
+const api_key ='43ccb8f924d9b6cc8b933727e8772740'
+
+let my_client = new Client(client_id,client_secret,username,api_key)
+
+const r =   async ()=>    await my_client.process_document_url(req.body.image)
+
+
+r().then((response)=>{
+
+    // console.log(response.total)
+    // console.log(response.date)
+
+    var data = {
+        "price": response.total,
+        "date": response.date,
+        "currency": response.currency_code,
+        "description": description
+    }
+     
+        db.collection('details').insertOne(data,(err,collection)=>{
+            if(err){
+                throw err;
+            }
+            console.log("Record Inserted Successfully");
+            // console.log(data)
+            res.status(200).send(data)
+
+       
+        })
+
+
+    // return res.send ({
+    //     total:response.total,
+    //     date:response.date,
+    //     currency:response.currency_code,
+    // }) 
+
     
-    // return res.redirect('signup_success.html')
+
+})
+    
+    
+
 
 })
 
 
 
-// const {createWorker} = require('tesseract.js')
-// const worker = createWorker({
-//     logger: m => console.log(m)
-//   });
-  
-//   (async () => {
-//     await worker.load();
-//     await worker.loadLanguage('eng');
-//     await worker.initialize('eng');
-//     const { data: { text } } = await worker.recognize('http://res.cloudinary.com/amigoz/image/upload/v1633119166/svno02mdikg9ullsg5tt.jpg');
-//     console.log(text);
-//     t = text.toLowerCase();
-//     await worker.terminate();
-//   })();
 
 
 
