@@ -33,9 +33,10 @@ const Home = () => {
     }
     console.log(image)
     
-    const handleConvert = async ()=>{
-      await  fetch("http://localhost:5000/postImg",{
+    const handleConvert =  ()=>{
+         return   fetch("http://localhost:5000/postImg",{
             method:"post",
+            headers:{"Content-type":"application/json"},
             body:JSON.stringify({image:image.imgUrl})
         }).then(res=>res.json()).then(result=>console.log(result.text))
         }

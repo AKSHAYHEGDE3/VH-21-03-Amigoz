@@ -34,9 +34,11 @@ const Signup = () => {
                   headers: { 'Content-Type': 'application/json' }
               });
               const data= await res.json()
+              console.log(data)
      
-          if (data.user) {
-              setUser(data.user)
+          if (data.email) {
+              setUser(details.email)
+              console.log(user)
           }
         }  catch(error){
           console.log(error)

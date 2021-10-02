@@ -5,6 +5,7 @@ import { UserContext } from './UserContext';
 import Login from './components/login/Login';
 import Signup from './components/login/Signup';
 import Home from './components/Home';
+// import Pie from './components/Pie';
 // import Cookies from 'js-cookie';
 
 function App() {
@@ -22,7 +23,8 @@ console.log(user)
      <Switch>
      <Route exact path='/'>{user?<Home />:<Login />}</Route>
        <Route path='/login'>{user?<Home />:<Login />}</Route>
-       <Route path='/signup'><Signup /></Route>
+       <Route path='/signup'>{user?<Home />:<Signup />}</Route>
+       {/* <Route path='/dash'>{<Pie />}</Route> */}
      </Switch>
      </UserContext.Provider>
     </div>
