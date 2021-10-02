@@ -5,8 +5,8 @@ import { UserContext } from './UserContext';
 import Login from './components/login/Login';
 import Signup from './components/login/Signup';
 import Home from './components/Home';
-// import Pie from './components/Pie';
-// import Cookies from 'js-cookie';
+import Stats from './components/Stats';
+
 
 function App() {
 
@@ -23,8 +23,9 @@ console.log(user)
      <Switch>
      <Route exact path='/'>{user?<Home />:<Login />}</Route>
        <Route path='/login'>{user?<Home />:<Login />}</Route>
-       <Route path='/signup'>{user?<Home />:<Signup />}</Route>
-       {/* <Route path='/dash'>{<Pie />}</Route> */}
+       <Route path='/signup'>{user?<Home />:<Login />}</Route>
+       <Route path='/stats'>{user?<Stats />:<Login />}</Route>
+      
      </Switch>
      </UserContext.Provider>
     </div>
