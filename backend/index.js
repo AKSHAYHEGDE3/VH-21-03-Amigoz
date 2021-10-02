@@ -3,9 +3,15 @@ var express = require("express")
 var bodyParser = require("body-parser")
 var mongoose = require("mongoose")
 const cors = require('cors');
+const Tesseract = require('tesseract.js');
+let url = ""
+// const fs = require('fs');
+// const Tesseract = require('tesseract.js');
 // const bodyParser = require('body-parser');
 
 const app = express()
+
+
 
 app.use(bodyParser.json())
 app.use(express.static('public'))
@@ -53,7 +59,7 @@ app.post('/signin',(req,res)=>{
 app.post("/sign_up",(req,res)=>{
     var name = req.body.name;
     var email = req.body.email;
-    var phone = req.body.phone;
+    // var phone = req.body.phone;
     var password = req.body.password;
         console.log(req.body)
     var data = {
@@ -68,18 +74,80 @@ app.post("/sign_up",(req,res)=>{
             }
             console.log("Record Inserted Successfully");
             console.log(data)
-            res.status(200).send(data)
-
-            
-            
+            res.status(200).send(data) 
             
         })
-     
-     
     
     // return res.redirect('signup_success.html')
 
 })
+
+app.post("/postImg",(req,res)=>{
+    var image = req.body.image;
+    // var email = req.body.email;
+    // // var phone = req.body.phone;
+    // var password = req.body.password;
+        console.log(req.body)
+    // var data = {
+    //     "image": image,
+        
+      
+    // }
+     
+        // db.collection('images').insertOne(data,(err,collection)=>{
+        //     if(err){
+        //         throw err;
+        //     }
+        //     console.log("Record Inserted Successfully");
+        //     // console.log(data)
+        //     res.status(200).send(data)
+
+        //    url = data.image
+            
+        // })
+
+//         const {createWorker} = require('tesseract.js')
+//         const worker = createWorker({
+//         logger: m => console.log(m)
+//   });
+  
+
+
+    Tesseract.recognize(
+        req.body.image,
+        'eng',
+        { logger: m => console.log(m) }
+    )
+    .then(({ data: { text } }) => {
+        console.log(text)
+        return res.send({
+            text: text
+        });
+    })
+    
+    // return res.redirect('signup_success.html')
+
+})
+
+
+
+// const {createWorker} = require('tesseract.js')
+// const worker = createWorker({
+//     logger: m => console.log(m)
+//   });
+  
+//   (async () => {
+//     await worker.load();
+//     await worker.loadLanguage('eng');
+//     await worker.initialize('eng');
+//     const { data: { text } } = await worker.recognize('http://res.cloudinary.com/amigoz/image/upload/v1633119166/svno02mdikg9ullsg5tt.jpg');
+//     console.log(text);
+//     t = text.toLowerCase();
+//     await worker.terminate();
+//   })();
+
+
+
 
 
 app.get("/",(req,res)=>{
