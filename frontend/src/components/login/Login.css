@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins');
 
 /* BASIC */
-
-/* html {
+/* 
+html {
   background-color: #56baed;
 } */
 
@@ -83,7 +83,7 @@ h2.active {
 /* FORM TYPOGRAPHY*/
 
 input[type=button], input[type=submit], input[type=reset]  {
-  /* background-color: #56baed; */
+  background-color: #56baed;
   border: none;
   color: white;
   padding: 15px 80px;
@@ -104,9 +104,9 @@ input[type=button], input[type=submit], input[type=reset]  {
   transition: all 0.3s ease-in-out;
 }
 
-/* input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover  {
+input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover  {
   background-color: #39ace7;
-} */
+}
 
 input[type=button]:active, input[type=submit]:active, input[type=reset]:active  {
   -moz-transform: scale(0.95);
@@ -293,7 +293,7 @@ input[type=]:placeholder {
   bottom: -10px;
   width: 0;
   height: 2px;
-  /* background-color: #56baed; */
+  background-color: #56baed;
   content: "";
   transition: width 0.2s;
 }

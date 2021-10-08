@@ -23,7 +23,7 @@ console.log(user)
      <Switch>
      <Route exact path='/'>{user?<Home />:<Login />}</Route>
        <Route path='/login'>{user?<Home />:<Login />}</Route>
-       <Route path='/signup'>{user?<Home />:<Login />}</Route>
+       <Route path='/signup'>{user?<Home />:<Signup />}</Route>
        <Route path='/stats'>{user?<Stats />:<Login />}</Route>
       
      </Switch>
